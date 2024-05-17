@@ -1,5 +1,6 @@
 numpy
 pandas
 plotly
+pickle5
 scikit_learn
 streamlit
