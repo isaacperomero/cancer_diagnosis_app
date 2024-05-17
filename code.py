@@ -7,7 +7,9 @@ from sklearn.preprocessing import StandardScaler
 
 
 def get_clean_data():
-  data = pd.read_csv("data/data.csv")
+  data = 'https://raw.githubusercontent.com/isaacperomero/Bioinformatics/main/breast_cancer_data.csv'
+  
+  data = pd.read_csv(data)
   
   data = data.drop(['Unnamed: 32', 'id'], axis=1)
   
