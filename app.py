@@ -145,8 +145,8 @@ def add_prediction(input_data):
     else:
         st.write("<span class='diagnosis malicious'>Maligna</span>",unsafe_allow_html = True)
     
-    st.write("Probabilidad Benigna: ", round(model.predict_proba(input_scaled)[0][0],3))
-    st.write("Probabilidad Maligna: ", round(model.predict_proba(input_scaled)[0][1],3))
+    st.write("Probabilidad de que sea Benigna: ", round(model.predict_proba(input_scaled)[0][0],3))
+    st.write("Probabilidad de que sea Maligna: ", round(model.predict_proba(input_scaled)[0][1],3))
 
     st.write('Este análisis tiene como único objetivo mejorar la calidad del diagnóstico y no pretende sustituir al diagnóstico profesional.')
 
