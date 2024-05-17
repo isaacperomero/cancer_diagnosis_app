@@ -148,7 +148,7 @@ def add_prediction(input_data):
     st.write("Probabilidad Benigna: ", round(model.predict_proba(input_scaled)[0][0],3))
     st.write("Probabilidad Maligna: ", round(model.predict_proba(input_scaled)[0][1],3))
 
-    st.write('El análisis tiene como único objetivo mejorar la calidad del diagnóstico y no pretende sustituir al diagnóstico profesional.')
+    st.write('Este análisis tiene como único objetivo mejorar la calidad del diagnóstico y no pretende sustituir al diagnóstico profesional.')
 
 
 def main():
@@ -168,7 +168,7 @@ def main():
 
     with st.container():
         st.title("Predictor de Cáncer de Mama")
-        st.write("El diagnóstico del cáncer de mama suele implicar el examen de muestras celulares obtenidas mediante procedimientos citológicos. Al integrar nuestra aplicación ML con un laboratorio de citología, se puede crear un flujo de trabajo completo y eficiente que maximiza la precisión y la rápidez en la detección del cáncer de mama.")
+        st.write("El diagnóstico del cáncer de mama suele implicar el examen de muestras celulares obtenidas mediante procedimientos citológicos. Al integrar esta aplicación de ML con un laboratorio de citología, se puede crear un flujo de trabajo completo y eficiente que maximiza la precisión y la rapidez en la detección del cáncer de mama.")
 
     col1, col2 = st.columns([4,1])
 
