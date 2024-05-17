@@ -18,41 +18,41 @@ def get_clean_data():
   return data
 
 def add_sidebar():
-  st.sidebar.header("Cell Nuclei Measurements")
+  st.sidebar.header("Medidas de los núcleos celulares")
   
   data = get_clean_data()
   
   slider_labels = [
-        ("Radius (mean)", "radius_mean"),
-        ("Texture (mean)", "texture_mean"),
-        ("Perimeter (mean)", "perimeter_mean"),
-        ("Area (mean)", "area_mean"),
-        ("Smoothness (mean)", "smoothness_mean"),
-        ("Compactness (mean)", "compactness_mean"),
-        ("Concavity (mean)", "concavity_mean"),
-        ("Concave points (mean)", "concave points_mean"),
-        ("Symmetry (mean)", "symmetry_mean"),
-        ("Fractal dimension (mean)", "fractal_dimension_mean"),
-        ("Radius (se)", "radius_se"),
-        ("Texture (se)", "texture_se"),
-        ("Perimeter (se)", "perimeter_se"),
-        ("Area (se)", "area_se"),
-        ("Smoothness (se)", "smoothness_se"),
-        ("Compactness (se)", "compactness_se"),
-        ("Concavity (se)", "concavity_se"),
-        ("Concave points (se)", "concave points_se"),
-        ("Symmetry (se)", "symmetry_se"),
-        ("Fractal dimension (se)", "fractal_dimension_se"),
-        ("Radius (worst)", "radius_worst"),
-        ("Texture (worst)", "texture_worst"),
-        ("Perimeter (worst)", "perimeter_worst"),
-        ("Area (worst)", "area_worst"),
-        ("Smoothness (worst)", "smoothness_worst"),
-        ("Compactness (worst)", "compactness_worst"),
-        ("Concavity (worst)", "concavity_worst"),
-        ("Concave points (worst)", "concave points_worst"),
-        ("Symmetry (worst)", "symmetry_worst"),
-        ("Fractal dimension (worst)", "fractal_dimension_worst"),
+        ("Radio (promedio)", "radius_mean"),
+        ("Textura (promedio)", "texture_mean"),
+        ("Perímetro (promedio)", "perimeter_mean"),
+        ("Área (promedio)", "area_mean"),
+        ("Suavidad (promedio)", "smoothness_mean"),
+        ("Compacidad (promedio)", "compactness_mean"),
+        ("Concavidad (promedio)", "concavity_mean"),
+        ("Puntos cóncavos (promedio)", "concave points_mean"),
+        ("Simetría (promedio)", "symmetry_mean"),
+        ("Dimensión fractal (promedio)", "fractal_dimension_mean"),
+        ("Radio (error estándar)", "radius_se"),
+        ("Textura (error estándar)", "texture_se"),
+        ("Perímetro (error estándar)", "perimeter_se"),
+        ("Área (error estándar)", "area_se"),
+        ("Suavidad (error estándar)", "smoothness_se"),
+        ("Compacidad (error estándar)", "compactness_se"),
+        ("Concavidad (error estándar)", "concavity_se"),
+        ("Puntos cóncavos (error estándar)", "concave points_se"),
+        ("Simetría (error estándar)", "symmetry_se"),
+        ("Dimensión fractal (error estándar)", "fractal_dimension_se"),
+        ("Radio (máximo)", "radius_worst"),
+        ("Textura (máximo)", "texture_worst"),
+        ("Perímetro (máximo)", "perimeter_worst"),
+        ("Área (máximo)", "area_worst"),
+        ("Suavidad (máximo)", "smoothness_worst"),
+        ("Compacidad (máximo)", "compactness_worst"),
+        ("Concavidad (máximo)", "concavity_worst"),
+        ("Puntos cóncavos (máximo)", "concave points_worst"),
+        ("Simetría (máximo)", "symmetry_worst"),
+        ("Dimensión fractal (máximo)", "fractal_dimension_worst"),
     ]
 
   input_dict = {}
@@ -64,7 +64,6 @@ def add_sidebar():
       max_value=float(data[key].max()),
       value=float(data[key].mean())
     )
-    
   return input_dict
 
 def get_scaled_values(input_dict):
@@ -81,10 +80,9 @@ def get_scaled_values(input_dict):
 
 def get_radar_chart(input_data):
     input_data = get_scaled_values(input_data)
-    categories = ["Radius","Texture","Perimeter","Area",
-    "Smoothness","Compactness","Concavity", "Concave points",
-    "Symmetry","Fractal Dimension"
-    ]
+    categories = ["Radio","Textura","Perímetro","Área",
+    "Suavidad","Compacidad","Concavidad", "Puntos cóncavos",
+    "Simetría","Dimensión fractal"]
 
     fig = go.Figure()
 
@@ -97,7 +95,7 @@ def get_radar_chart(input_data):
         ],
         theta=categories,
         fill='toself',
-        name='Mean'
+        name='Promedio'
     ))
     fig.add_trace(go.Scatterpolar(
          r=[
@@ -107,7 +105,7 @@ def get_radar_chart(input_data):
         ],
         theta=categories,
         fill='toself',
-        name='Standard Error'
+        name='Error Estándar'
     ))
     fig.add_trace(go.Scatterpolar(
          r=[
@@ -118,7 +116,7 @@ def get_radar_chart(input_data):
         ],
         theta=categories,
         fill='toself',
-        name='Lowest'
+        name='Máximo'
     ))
     fig.update_layout(
     polar=dict(
@@ -139,38 +137,38 @@ def add_prediction(input_data):
     input_scaled = scaler.transform(input_np)
 
     prediction = model.predict(input_scaled)
-    st.subheader("Cell cluster status")
-    st.write("The cell cluster is:")
+    st.subheader("Estado de la agrupación celular")
+    st.write("La agrupación celular es:")
 
     if prediction[0] == 0:
-        st.write("<span class='diagnosis benign'>Benign</span>",unsafe_allow_html = True)
+        st.write("<span class='diagnosis benign'>Benigna</span>",unsafe_allow_html = True)
     else:
-        st.write("<span class='diagnosis malicious'>Malicious</span>",unsafe_allow_html = True)
+        st.write("<span class='diagnosis malicious'>Maligna</span>",unsafe_allow_html = True)
     
-    st.write("Benign Probability: ", round(model.predict_proba(input_scaled)[0][0],3))
-    st.write("Malicious Probability: ", round(model.predict_proba(input_scaled)[0][1],3))
+    st.write("Probabilidad Benigna: ", round(model.predict_proba(input_scaled)[0][0],3))
+    st.write("Probabilidad Maligna: ", round(model.predict_proba(input_scaled)[0][1],3))
 
-    st.write('The analysis is to purely boost the quality of diagnosis and is not meant as a substitute to professional diagnosis')
+    st.write('El análisis tiene como único objetivo mejorar la calidad del diagnóstico y no pretende sustituir al diagnóstico profesional.')
 
 
 def main():
     st.set_page_config(
-        page_title = "Breast Cancer Prediction",
+        page_title = "Predicción de Cáncer de Mama",
         page_icon = ":female-doctor",
         layout = "wide",
         initial_sidebar_state="expanded"
     )
 
-   # with open("assets/style.css") as f:
-       # st.markdown("<style>{}</style>".format(f.read()),unsafe_allow_html=True)
+   with open("style.css") as f:
+       st.markdown("<style>{}</style>".format(f.read()),unsafe_allow_html=True)
      
 
     input_data = add_sidebar()
  
 
     with st.container():
-        st.title("Breast Cancer Predictor")
-        st.write("Breast cancer diagnosis often involves the examination of cellular samples obtained through cytology procedures. By integrating our ML application with our cytology lab, we create a comprehensive and efficient workflow that maximizes accuracy and speed in detecting breast cancer.")
+        st.title("Predictor de Cáncer de Mama")
+        st.write("El diagnóstico del cáncer de mama suele implicar el examen de muestras celulares obtenidas mediante procedimientos citológicos. Al integrar nuestra aplicación ML con un laboratorio de citología, se puede crear un flujo de trabajo completo y eficiente que maximiza la precisión y la rápidez en la detección del cáncer de mama.")
 
     col1, col2 = st.columns([4,1])
 
