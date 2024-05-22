@@ -1,6 +1,6 @@
 # Breast Cancer Prediction App
 
-!(https://github.com/isaacperomero/cancer_diagnosis_app/blob/main/screenshot_app.png)
+![screenshot](https://github.com/isaacperomero/cancer_diagnosis_app/blob/main/screenshot_app.png)
 
 ### Dataset
 Dataset can be found on (https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data).
